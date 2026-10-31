@@ -203,7 +203,7 @@ export const InvoicesPage: React.FC = () => {
       {/* Toast Alert */}
       {toast && (
         <div
-          className={`px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between border ${
+          className={`toast-enter px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between border ${
             toast.type === 'error'
               ? 'bg-rose-50 border-rose-200 text-rose-900'
               : toast.type === 'success'
@@ -535,8 +535,8 @@ export const InvoicesPage: React.FC = () => {
 
       {/* Billing Run Preview Modal */}
       {showBillingModal && billingPreview && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-2xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-2xs backdrop-fade flex items-center justify-center p-4">
+          <div className="modal-enter bg-white rounded-lg max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <h3 className="text-sm font-semibold text-slate-900">Execute Billing Run</h3>
               <button
@@ -594,10 +594,10 @@ export const InvoicesPage: React.FC = () => {
 
       {/* Record Payment Modal */}
       {showPayModal && selectedInvoice && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-2xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-2xs backdrop-fade flex items-center justify-center p-4">
           <form
             onSubmit={handleRecordPaymentSubmit}
-            className="bg-white rounded-lg max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
+            className="modal-enter bg-white rounded-lg max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
           >
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <h3 className="text-sm font-semibold text-slate-900">

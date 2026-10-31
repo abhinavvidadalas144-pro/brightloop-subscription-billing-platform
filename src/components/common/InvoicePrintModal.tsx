@@ -22,8 +22,8 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({ invoice, o
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs backdrop-fade flex items-center justify-center p-4">
+      <div className="modal-enter bg-white rounded-2xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-200">
         {/* Top action toolbar (hidden on print) */}
         <div className="no-print bg-slate-900 text-white px-6 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-3">

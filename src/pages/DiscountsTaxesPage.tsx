@@ -115,7 +115,7 @@ export const DiscountsTaxesPage: React.FC = () => {
   return (
     <div className="space-y-4 max-w-6xl mx-auto">
       {toast && (
-        <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between">
+        <div className="toast-enter bg-emerald-50 border border-emerald-200 text-emerald-900 px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             <span>{toast}</span>

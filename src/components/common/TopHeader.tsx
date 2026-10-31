@@ -148,7 +148,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             </button>
 
             {showCompanyMenu && !isCustomer && (
-              <div className="absolute top-full left-0 mt-1 w-60 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-40 text-xs">
+              <div className="dropdown-enter absolute top-full left-0 mt-1 w-60 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-40 text-xs">
                 <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-100">
                   Switch Organization View
                 </div>
@@ -202,7 +202,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
           {/* Search Dropdown Results */}
           {showSearchResults && searchVal && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 py-2 z-50 text-xs max-h-80 overflow-y-auto">
+            <div className="dropdown-enter absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 py-2 z-50 text-xs max-h-80 overflow-y-auto">
               {!hasSearchResults ? (
                 <div className="px-4 py-3 text-center text-slate-400 text-xs">
                   No matching records found for "{searchVal}".
@@ -302,17 +302,17 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
                 setShowNotifications(!showNotifications);
                 setShowUserMenu(false);
               }}
-              className="p-1.5 rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors relative"
+              className="p-1.5 rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors relative hover-bell-swing"
               aria-label="View notifications"
             >
               <Bell className="w-4 h-4" />
               {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-600" />
+                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-600 animate-pulse" />
               )}
             </button>
 
             {showNotifications && (
-              <div className="absolute right-0 top-full mt-1.5 w-80 bg-white rounded-lg shadow-xl border border-slate-200 p-3 z-50 text-xs">
+              <div className="dropdown-enter absolute right-0 top-full mt-1.5 w-80 bg-white rounded-lg shadow-xl border border-slate-200 p-3 z-50 text-xs">
                 <div className="flex items-center justify-between pb-2 border-b border-slate-100 mb-2">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-slate-900">Activity & Alerts</span>
@@ -401,7 +401,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
             {/* User Profile Menu Dropdown */}
             {showUserMenu && (
-              <div className="absolute right-0 top-full mt-1.5 w-60 bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 z-50 text-xs">
+              <div className="dropdown-enter absolute right-0 top-full mt-1.5 w-60 bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 z-50 text-xs">
                 <div className="px-3 py-2 border-b border-slate-100 bg-slate-50/50">
                   <span className="font-semibold text-slate-900 block truncate">{currentUser.name}</span>
                   <span className="text-[10px] font-mono text-slate-500 block truncate">{currentUser.email}</span>
@@ -455,10 +455,10 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
       {/* Change Password Modal */}
       {showPasswordModal && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs backdrop-fade flex items-center justify-center p-4">
           <form
             onSubmit={handlePasswordSubmit}
-            className="bg-white rounded-md max-w-sm w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
+            className="modal-enter bg-white rounded-md max-w-sm w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
           >
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <h3 className="text-sm font-semibold text-[#0B2E2B]">Change Account Password</h3>
@@ -472,14 +472,14 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             </div>
 
             {passwordToast && (
-              <div className="p-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded text-xs flex items-center gap-2">
+              <div className="toast-enter p-2.5 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded text-xs flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                 <span>{passwordToast}</span>
               </div>
             )}
 
             {passwordError && (
-              <div className="p-2.5 bg-red-50 border border-red-200 text-red-800 rounded text-xs flex items-center gap-2">
+              <div className="toast-enter p-2.5 bg-red-50 border border-red-200 text-red-800 rounded text-xs flex items-center gap-2">
                 <AlertCircle className="w-3.5 h-3.5 text-red-600 shrink-0" />
                 <span>{passwordError}</span>
               </div>

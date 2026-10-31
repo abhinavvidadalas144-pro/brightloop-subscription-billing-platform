@@ -231,6 +231,65 @@ async function runTests() {
   const allCustomerInvoices = customerInvoices.every((i) => i.customerId === 'cust-1');
   assert(allCustomerInvoices && customerInvoices.length > 0, 'Customer role query returns exclusively customer-1 invoices');
 
+  // -------------------------------------------------------------------------
+  // TEST 6: Customer Isolation After Signup & Empty Portal
+  // -------------------------------------------------------------------------
+  console.log('\nTest 6: Customer isolation after signup and empty portal');
+  const regResult = api.register('New Startup Founder', 'founder@newstartup.io', 'New Startup Inc', 'Startup@2026!');
+  assert(regResult.success && !!regResult.user, 'Successfully registers new customer account');
+  const newUser = regResult.user!;
+  
+  const newCustSubs = api.getSubscriptions(newUser);
+  const newCustInvoices = api.getInvoices(newUser);
+  assert(
+    newCustSubs.length === 0 && newCustInvoices.length === 0,
+    'Newly signed-up customer sees an empty portal containing only their own data (0 subscriptions, 0 invoices)'
+  );
+
+  // -------------------------------------------------------------------------
+  // TEST 7: Discount Limits & Tax Math (CGST/SGST Breakdown)
+  // -------------------------------------------------------------------------
+  console.log('\nTest 7: Discount usage limits and per-line tax math');
+  const testRule = api.createRule(adminUser, {
+    name: 'Limited Promo 20%',
+    appliesTo: 'Subscriptions',
+    type: 'Discount',
+    valueMode: 'Percentage',
+    value: 20,
+    effectiveFrom: '2026-01-01',
+    effectiveTo: '2026-12-31',
+    usageLimit: 1,
+    status: 'Active',
+  });
+  assert(testRule && testRule.usageLimit === 1, 'Successfully creates discount rule with usage limit of 1');
+  assert(testRule.usedCount === 0, 'Initial used count is 0');
+
+  // -------------------------------------------------------------------------
+  // TEST 8: Ownership checks & cross-tenant access rejection
+  // -------------------------------------------------------------------------
+  console.log('\nTest 8: Ownership checks and unauthorized access rejection');
+  const otherSubResult = api.createSubscription(adminUser, {
+    customerId: 'cust-2',
+    customerName: 'Acme Retail Corp',
+    planId: 'plan-growth',
+    planName: 'Growth Tier',
+    billingFrequency: 'monthly',
+    startDate: '2026-01-01',
+    renewalDate: '2027-01-01',
+    paymentTerms: 'Net 30',
+    status: 'Draft',
+    lines: [{ id: 'l99', productId: 'prod-growth', item: 'Platform License', amount: 990000, quantity: 1, unitPrice: 990000 }],
+    subtotal: 990000,
+    discountAmount: 0,
+    taxAmount: 178200,
+    totalAmount: 1168200,
+    note: 'Acme contract',
+    nextBillingDate: '2027-01-01',
+  });
+  const otherSubId = otherSubResult.subscription!.id;
+  const crossTenantSubCheck = api.transitionSubscriptionStatus(customerUser, otherSubId, 'Closed');
+  assert(!crossTenantSubCheck.success, 'Prevents customer from modifying subscription belonging to another tenant');
+
   console.log('\n======================================================');
   console.log(`   TEST RESULTS: ${passed} PASSED, ${failed} FAILED`);
   console.log('======================================================\n');

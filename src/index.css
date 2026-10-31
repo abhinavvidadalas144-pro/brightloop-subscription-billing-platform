@@ -24,6 +24,27 @@
   /* Compact form controls baseline */
   input, select, textarea {
     font-size: 13px;
+    transition: border-color 150ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1), background-color 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Tactile interactive feedback for buttons and clickable items */
+  button:not(:disabled), [role="button"]:not([aria-disabled="true"]) {
+    transition-property: background-color, border-color, color, box-shadow, opacity, transform;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  button:not(:disabled):active, [role="button"]:not([aria-disabled="true"]):active {
+    transform: scale(0.985);
+  }
+
+  a {
+    transition: color 150ms cubic-bezier(0.16, 1, 0.3, 1), opacity 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Smooth table row hover transitions */
+  tbody tr {
+    transition: background-color 100ms ease-out;
   }
 }
 
@@ -37,6 +58,7 @@
 *:focus-visible {
   outline: 2px solid #0C3430;
   outline-offset: 1px;
+  transition: outline-offset 120ms ease-out;
 }
 
 /* Clean enterprise scrollbars */
@@ -58,6 +80,108 @@
   background: #94A3B8;
 }
 
+/* Micro-interaction & Navigation Transitions */
+@keyframes pageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes modalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.975) translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes dropdownSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes backdropFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bellSwing {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(12deg); }
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(6deg); }
+  80% { transform: rotate(-3deg); }
+}
+
+.page-enter {
+  animation: pageFadeIn 180ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.modal-enter {
+  animation: modalPop 160ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.dropdown-enter {
+  animation: dropdownSlide 130ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+  transform-origin: top;
+}
+
+.toast-enter {
+  animation: toastSlideUp 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.backdrop-fade {
+  animation: backdropFade 150ms ease-out forwards;
+}
+
+.hover-bell-swing:hover {
+  animation: bellSwing 420ms ease-in-out;
+  transform-origin: top center;
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Custom print styles for invoices */
 @media print {
   .no-print {
@@ -70,3 +194,4 @@
     background-color: white !important;
   }
 }
+

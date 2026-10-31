@@ -35,6 +35,9 @@ export const INITIAL_USERS: User[] = [
     company: 'Brightloop Software',
     avatarText: 'AS',
     avatarColor: 'bg-emerald-700',
+    passwordSalt: 'salt_anika_2026_bl',
+    passwordHash: '02d0c092db42ec65f90aa80e9889bf0d6248df3c4b818ed7a5b0bab89f7b8764',
+    isActive: true,
   },
   {
     id: 'user-aarav',
@@ -44,6 +47,9 @@ export const INITIAL_USERS: User[] = [
     company: 'Brightloop Software',
     avatarText: 'AR',
     avatarColor: 'bg-teal-700',
+    passwordSalt: 'salt_aarav_2026_bl',
+    passwordHash: '864cf99c6f3a3dc7a2614281f80efe04105b5692d7ebc3381ee9307378071fc2',
+    isActive: true,
   },
   {
     id: 'user-neha',
@@ -53,6 +59,9 @@ export const INITIAL_USERS: User[] = [
     company: 'Brightloop Software',
     avatarText: 'NS',
     avatarColor: 'bg-indigo-700',
+    passwordSalt: 'salt_neha_2026_bl',
+    passwordHash: '8f1142883ffe3c2c9b13891d7abc3404b3e0473ad61e4ee07a56556556321116',
+    isActive: true,
   },
   {
     id: 'user-priya',
@@ -62,6 +71,9 @@ export const INITIAL_USERS: User[] = [
     company: 'Brightloop Software',
     avatarText: 'PN',
     avatarColor: 'bg-slate-700',
+    passwordSalt: 'salt_priya_2026_bl',
+    passwordHash: 'c463d9f4fae0868771611be8b5571844ab4cee44ba6b7d3ab3bac55c52e2a4ea',
+    isActive: true,
   },
   {
     id: 'user-northwind',
@@ -72,6 +84,9 @@ export const INITIAL_USERS: User[] = [
     customerId: 'cust-1',
     avatarText: 'NT',
     avatarColor: 'bg-emerald-900',
+    passwordSalt: 'salt_northwind_2026_bl',
+    passwordHash: '7a3c9042269a42da3083c66ebf6f6930488629e6463fa7282fad32efbbb40ae8',
+    isActive: true,
   },
   {
     id: 'user-acme',
@@ -82,6 +97,9 @@ export const INITIAL_USERS: User[] = [
     customerId: 'cust-2',
     avatarText: 'AR',
     avatarColor: 'bg-teal-900',
+    passwordSalt: 'salt_acme_2026_bl',
+    passwordHash: '92950407048aec869a569893e2cfae11ee0542d65fa7cefe765ac4b75c543302',
+    isActive: true,
   },
 ];
 

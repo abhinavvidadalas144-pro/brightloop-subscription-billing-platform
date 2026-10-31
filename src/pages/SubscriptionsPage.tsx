@@ -237,7 +237,7 @@ export const SubscriptionsPage: React.FC = () => {
     <div className="space-y-4 max-w-6xl mx-auto">
       {toast && (
         <div
-          className={`px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between border ${
+          className={`toast-enter px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between border ${
             toast.isError
               ? 'bg-rose-50 border-rose-200 text-rose-900'
               : 'bg-emerald-50 border-emerald-200 text-emerald-900'
@@ -567,10 +567,10 @@ export const SubscriptionsPage: React.FC = () => {
 
       {/* New Subscription Modal */}
       {showNewSubModal && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-2xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-2xs backdrop-fade flex items-center justify-center p-4">
           <form
             onSubmit={handleCreateNewSub}
-            className="bg-white rounded-lg max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
+            className="modal-enter bg-white rounded-lg max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
           >
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <h3 className="text-sm font-semibold text-slate-900">Create Subscription</h3>

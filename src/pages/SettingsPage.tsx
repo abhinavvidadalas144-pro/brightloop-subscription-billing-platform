@@ -79,7 +79,7 @@ export const SettingsPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl">
       {toast && (
-        <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between">
+        <div className="toast-enter bg-emerald-50 border border-emerald-200 text-emerald-900 px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             <span>{toast}</span>
@@ -89,7 +89,7 @@ export const SettingsPage: React.FC = () => {
       )}
 
       {errorMsg && (
-        <div className="p-2.5 bg-red-50 border border-red-200 text-red-800 rounded text-xs flex items-center justify-between">
+        <div className="toast-enter p-2.5 bg-red-50 border border-red-200 text-red-800 rounded text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
             <span>{errorMsg}</span>

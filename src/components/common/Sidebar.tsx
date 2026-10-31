@@ -21,33 +21,55 @@ import { useBilling } from '../../context/BillingContext';
 
 export type AppPage =
   | 'landing'
+  | 'product'
+  | 'solutions'
   | 'pricing'
+  | 'resources'
+  | 'book-demo'
   | 'register'
   | 'login'
   | 'dashboard'
+  | 'customers'
   | 'subscriptions'
   | 'invoices'
   | 'payments'
   | 'discounts-taxes'
-  | 'reports'
-  | 'customer-portal'
+  | 'quotes'
   | 'products'
   | 'plans'
-  | 'customers'
-  | 'quotes'
+  | 'reports'
   | 'staff'
-  | 'settings';
+  | 'settings'
+  | 'customer-portal';
+
+export type CustomerPortalTab = 'overview' | 'plan' | 'invoices' | 'payments' | 'settings';
 
 interface SidebarProps {
   currentPage: AppPage;
   onNavigate: (page: AppPage) => void;
+  currentPortalTab?: CustomerPortalTab;
+  onCustomerPortalTabChange?: (tab: CustomerPortalTab) => void;
   isOpen?: boolean;
   onClose?: () => void;
+}
+
+interface NavItem {
+  id: AppPage;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  customerTab?: CustomerPortalTab;
+}
+
+interface NavSection {
+  title: string;
+  items: NavItem[];
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
   currentPage,
   onNavigate,
+  currentPortalTab = 'overview',
+  onCustomerPortalTabChange,
   isOpen = false,
   onClose,
 }) => {
@@ -57,49 +79,43 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const isCustomer = currentUser.role === 'Customer';
   const isAdmin = currentUser.role === 'Admin';
 
-  const handleNavClick = (pageId: AppPage) => {
+  const handleNavClick = (pageId: AppPage, customerTab?: CustomerPortalTab) => {
     onNavigate(pageId);
+    if (customerTab && onCustomerPortalTabChange) {
+      onCustomerPortalTabChange(customerTab);
+    }
     if (onClose) onClose();
   };
 
-  // Grouped Navigation Sections (Linear/Stripe style)
-  const navSections = isCustomer
+  // Grouped Navigation Sections according to exact specification
+  const navSections: NavSection[] = isCustomer
     ? [
         {
-          title: 'Account',
+          title: 'Customer Portal',
           items: [
-            { id: 'customer-portal' as AppPage, label: 'Overview', icon: LayoutDashboard },
-            { id: 'customer-portal' as AppPage, label: 'Plan & Usage', icon: Layers },
-            { id: 'invoices' as AppPage, label: 'Billing Invoices', icon: FileText },
-            { id: 'payments' as AppPage, label: 'Payment Records', icon: CreditCard },
+            { id: 'customer-portal' as AppPage, customerTab: 'overview' as CustomerPortalTab, label: 'Overview', icon: LayoutDashboard },
+            { id: 'customer-portal' as AppPage, customerTab: 'plan' as CustomerPortalTab, label: 'My Plan', icon: Layers },
+            { id: 'customer-portal' as AppPage, customerTab: 'invoices' as CustomerPortalTab, label: 'Invoices', icon: FileText },
+            { id: 'customer-portal' as AppPage, customerTab: 'payments' as CustomerPortalTab, label: 'Payments', icon: CreditCard },
+            { id: 'customer-portal' as AppPage, customerTab: 'settings' as CustomerPortalTab, label: 'Account Settings', icon: Settings },
           ],
         },
       ]
     : [
         {
-          title: 'Core Billing',
+          title: 'Brightloop Billing',
           items: [
             { id: 'dashboard' as AppPage, label: 'Dashboard', icon: LayoutDashboard },
+            { id: 'customers' as AppPage, label: 'Customers', icon: Users },
             { id: 'subscriptions' as AppPage, label: 'Subscriptions', icon: Layers },
             { id: 'invoices' as AppPage, label: 'Invoices', icon: FileText },
             { id: 'payments' as AppPage, label: 'Payments', icon: CreditCard },
-          ],
-        },
-        {
-          title: 'Catalog & Sales',
-          items: [
-            { id: 'customers' as AppPage, label: 'Customers', icon: Users },
+            { id: 'discounts-taxes' as AppPage, label: 'Discounts & Taxes', icon: Percent },
             { id: 'quotes' as AppPage, label: 'Quotes', icon: FileCheck },
             { id: 'products' as AppPage, label: 'Products', icon: Package },
             { id: 'plans' as AppPage, label: 'Plans', icon: CalendarDays },
-          ],
-        },
-        {
-          title: 'Finance & Config',
-          items: [
-            { id: 'discounts-taxes' as AppPage, label: 'Discounts & taxes', icon: Percent },
             { id: 'reports' as AppPage, label: 'Reports', icon: BarChart3 },
-            ...(isAdmin ? [{ id: 'staff' as AppPage, label: 'Staff management', icon: ShieldCheck }] : []),
+            ...(isAdmin ? [{ id: 'staff' as AppPage, label: 'Staff', icon: ShieldCheck }] : []),
             { id: 'settings' as AppPage, label: 'Settings', icon: Settings },
           ],
         },
@@ -110,7 +126,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Mobile backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-2xs"
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-2xs backdrop-fade"
           onClick={onClose}
         />
       )}
@@ -154,12 +170,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
               {section.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = currentPage === item.id;
+                const isActive = isCustomer
+                  ? currentPage === 'customer-portal' && currentPortalTab === item.customerTab
+                  : currentPage === item.id;
 
                 return (
                   <button
                     key={item.label}
-                    onClick={() => handleNavClick(item.id)}
+                    onClick={() => handleNavClick(item.id, item.customerTab)}
                     className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-[13px] font-medium transition-colors text-left ${
                       isActive
                         ? 'bg-[#164642] text-white font-semibold shadow-2xs'
@@ -204,7 +222,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
             {/* Profile & Persona Switcher */}
             {profileDropdownOpen && (
-              <div className="absolute bottom-full left-0 right-0 mb-2 bg-[#082422] border border-[#1B524E] rounded-lg shadow-xl py-1 z-50 text-xs">
+              <div className="dropdown-enter absolute bottom-full left-0 right-0 mb-2 bg-[#082422] border border-[#1B524E] rounded-lg shadow-xl py-1 z-50 text-xs">
                 <div className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#7EAAA6] border-b border-[#143D39]">
                   Switch Role / Persona
                 </div>

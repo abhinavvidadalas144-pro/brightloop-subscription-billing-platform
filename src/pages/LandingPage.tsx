@@ -18,6 +18,7 @@ import { BrightloopLogo } from '../components/common/BrightloopLogo';
 import { Currency, formatINR } from '../components/common/Currency';
 import { StatusBadge } from '../components/common/StatusBadge';
 import { AppPage } from '../components/common/Sidebar';
+import { PublicNavbar } from '../components/common/PublicNavbar';
 
 interface LandingPageProps {
   onNavigate: (page: AppPage) => void;
@@ -26,55 +27,8 @@ interface LandingPageProps {
 export const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   return (
     <div className="min-h-screen bg-[#F8F9F8] text-slate-900 selection:bg-[#F4BA28]/30">
-      {/* 1. Public Top Navigation Bar as seen in PDF Page 1 */}
-      <nav className="bg-[#0B2E2B] text-white px-6 lg:px-12 py-3 flex items-center justify-between border-b border-[#144743] sticky top-0 z-40">
-        <div className="flex items-center gap-8">
-          <button onClick={() => onNavigate('landing')} className="focus:outline-hidden">
-            <BrightloopLogo variant="light" size="md" />
-          </button>
-          <div className="hidden md:flex items-center gap-6 text-xs font-medium text-[#B0D0CE]">
-            <button
-              onClick={() => onNavigate('dashboard')}
-              className="hover:text-white transition-colors"
-            >
-              Product
-            </button>
-            <button
-              onClick={() => onNavigate('pricing')}
-              className="hover:text-white transition-colors"
-            >
-              Pricing
-            </button>
-            <button
-              onClick={() => onNavigate('settings')}
-              className="hover:text-white transition-colors"
-            >
-              Compliance
-            </button>
-            <button
-              onClick={() => onNavigate('reports')}
-              className="hover:text-white transition-colors"
-            >
-              Finance Reports
-            </button>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => onNavigate('login')}
-            className="text-xs font-medium text-white hover:text-[#F4BA28] transition-colors px-2 py-1"
-          >
-            Log in
-          </button>
-          <button
-            onClick={() => onNavigate('register')}
-            className="px-3.5 py-1.5 bg-[#F4BA28] text-slate-950 rounded text-xs font-medium hover:bg-[#E5A817] transition-colors shadow-2xs"
-          >
-            Start free
-          </button>
-        </div>
-      </nav>
+      {/* Public Top Navigation Bar */}
+      <PublicNavbar currentPage="landing" onNavigate={onNavigate} />
 
       {/* 2. Hero Section matching PDF Page 1 */}
       <section className="px-6 lg:px-12 pt-14 pb-14 max-w-7xl mx-auto">

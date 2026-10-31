@@ -14,6 +14,9 @@ export interface User {
   customerId?: string; // If role === 'Customer', isolates data to this customerId
   avatarText: string;
   avatarColor?: string;
+  passwordHash?: string; // PBKDF2-HMAC-SHA256 hash
+  passwordSalt?: string; // Per-user cryptographic salt
+  isActive?: boolean;
 }
 
 export type SubscriptionStatus = 'Draft' | 'Quotation' | 'Confirmed' | 'Active' | 'Closed';
@@ -122,6 +125,11 @@ export interface InvoiceLineItem {
   quantity: number;
   unitPrice: number; // in integer paise
   amount: number; // in integer paise
+  taxRate?: number; // e.g. 18 for 18%
+  taxAmount?: number; // in integer paise
+  cgstAmount?: number; // in integer paise (9%)
+  sgstAmount?: number; // in integer paise (9%)
+  discountAmount?: number; // in integer paise
 }
 
 export interface Invoice {

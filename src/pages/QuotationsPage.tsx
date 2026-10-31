@@ -133,7 +133,7 @@ export const QuotationsPage: React.FC<QuotationsPageProps> = ({ onNavigate }) =>
   return (
     <div className="space-y-4">
       {toast && (
-        <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between">
+        <div className="toast-enter bg-emerald-50 border border-emerald-200 text-emerald-900 px-3.5 py-2 rounded-md text-xs font-medium flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
             <span>{toast}</span>
@@ -378,10 +378,10 @@ export const QuotationsPage: React.FC<QuotationsPageProps> = ({ onNavigate }) =>
 
       {/* Create Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs backdrop-fade flex items-center justify-center p-4">
           <form
             onSubmit={handleCreate}
-            className="bg-white rounded-md max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
+            className="modal-enter bg-white rounded-md max-w-md w-full p-5 border border-slate-200 shadow-xl space-y-3.5 text-xs"
           >
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <h3 className="text-sm font-semibold text-[#0B2E2B]">Create Sales Quotation</h3>
