@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-teal: #0C3430;
+    --brand-teal-dark: #082623;
+    --brand-teal-light: #164642;
+    --brand-yellow: #F4BA28;
+    --brand-yellow-hover: #E5A817;
+    --canvas-bg: #F8F9F8;
+    --border-subtle: #E5E7EB;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #F8F9F8;
+    color: #0F172A;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Compact form controls baseline */
+  input, select, textarea {
+    font-size: 13px;
+  }
+}
+
+/* Tabular figures for all financial & numerical displays */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Subtle, disciplined focus states */
+*:focus-visible {
+  outline: 2px solid #0C3430;
+  outline-offset: 1px;
+}
+
+/* Clean enterprise scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Custom print styles for invoices */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  body {
+    background-color: white !important;
+  }
+}

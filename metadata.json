@@ -1,0 +1,7 @@
+{
+  "name": "Brightloop - Subscription Billing Platform",
+  "description": "Every invoice goes out on the day it's due. Complete subscription lifecycle, billing automation, discount rules, payment reconciliation, and financial reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
