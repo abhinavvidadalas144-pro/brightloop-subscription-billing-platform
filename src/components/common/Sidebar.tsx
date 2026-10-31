@@ -254,7 +254,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }}
                     className="w-full px-3 py-1.5 text-left text-[11px] text-[#A0C0BE] hover:text-white hover:bg-[#113A36] flex items-center justify-between"
                   >
-                    <span>Public Landing & Pricing</span>
+                    <span>Logout</span>
                     <ExternalLink className="w-3 h-3 text-[#7EAAA6]" />
                   </button>
                 </div>

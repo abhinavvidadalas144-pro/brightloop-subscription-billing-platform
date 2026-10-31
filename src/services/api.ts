@@ -202,8 +202,22 @@ export const api = {
   getCurrentUser(): User {
     const users = getStored<User[]>(STORAGE_KEYS.USERS, INITIAL_USERS);
     const currId = getStored<string>(STORAGE_KEYS.CURRENT_USER_ID, users[0].id);
+    if (currId === 'guest') {
+      return {
+        id: 'guest',
+        name: 'Guest',
+        email: '',
+        role: 'Customer',
+        avatarText: 'GU',
+        isActive: false,
+      };
+    }
     const found = users.find((u) => u.id === currId);
     return found || users[0];
+  },
+
+  logout(): void {
+    setStored(STORAGE_KEYS.CURRENT_USER_ID, 'guest');
   },
 
   setCurrentUser(userId: string): User {

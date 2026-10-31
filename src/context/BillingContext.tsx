@@ -214,11 +214,15 @@ export const BillingProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const logout = () => {
-    const usersList = api.getUsers({ id: '', name: '', email: '', role: 'Admin', avatarText: '' });
-    if (usersList[0]) {
-      api.setCurrentUser(usersList[0].id);
-      setCurrentUserState(usersList[0]);
-    }
+    api.logout();
+    setCurrentUserState({
+      id: 'guest',
+      name: 'Guest',
+      email: '',
+      role: 'Customer',
+      avatarText: 'GU',
+      isActive: false,
+    });
     refreshData();
   };
 
